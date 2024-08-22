@@ -1,0 +1,341 @@
+// Variables
+$primary-color: #6a8dff;
+$dark-color: #333;
+$background-color: #f1f1f1;
+
+// Mixin for scrollbar
+@mixin scrollbar {
+  ::-webkit-scrollbar {
+    background-color: $primary-color;
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: $dark-color;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: $background-color;
+    margin: 40px 0px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
+// General styles
+* {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+// Scrollbar
+@include scrollbar;
+
+// Navbar
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 20px;
+  transition: background 0.3s ease;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  &.scrolled {
+    background: $dark-color;
+    box-shadow: rgba(240, 240, 240, 0.67) 2px 2px 5px;
+  }
+  .logo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 8px;
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    a {
+      color: #fff;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+  .nav-links {
+    display: flex;
+    list-style: none;
+    li {
+      margin-left: 20px;
+      a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 18px;
+        &:hover {
+          color: #bbbbbb;
+        }
+      }
+    }
+  }
+  .NavBtn {
+    display: none;
+    cursor: pointer;
+    div {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      margin: 5px;
+      transition: all 0.3s ease;
+    }
+  }
+  @media (max-width: 961px) {
+    .nav-links {
+      position: absolute;
+      top: 60px;
+      z-index: 0;
+      background: $dark-color;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      height: 0px;
+      transition: height 0.3s ease-in-out;
+      li {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+    }
+    .NavBtn {
+      display: block;
+    }
+    .nav-active {
+      height: 200px;
+      li {
+        opacity: 1;
+      }
+    }
+    .toggle {
+      .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+      .line2 {
+        opacity: 0;
+      }
+      .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+    }
+  }
+}
+
+// Home section
+section#home {
+  height: 100vh;
+  background: url("../images/back.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .layer {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 3;
+    background-color: #33333366;
+  }
+  .slider-container {
+    overflow: hidden;
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .slider {
+      display: flex;
+      transition: transform 1s ease-in-out;
+      .slide {
+        flex: 0 0 100%;
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+        h2 {
+          font-size: 26px;
+          margin-bottom: 8px;
+        }
+        p {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+#services {
+  width: 100%;
+  background-color: $dark-color;
+  position: relative;
+  overflow: hidden;
+  padding: 8px;
+
+  .service-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+
+    .service {
+      min-width: calc(100% - 10px);
+      background-color: #444;
+      box-sizing: border-box;
+      text-align: center;
+      padding: 10px;
+      margin: 5px;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        margin-bottom: 16px;
+      }
+
+      h3 {
+        font-size: 24px;
+        color: $primary-color;
+        margin-bottom: 12px;
+      }
+
+      p {
+        font-size: 16px;
+        color: white;
+      }
+
+      @media (min-width: 576px) {
+        min-width: calc(50% - 10px);
+      }
+
+      @media (min-width: 768px) {
+        min-width: calc(33.3333% - 10px);
+      }
+
+      @media (min-width: 992px) {
+        min-width: calc(25% - 10px);
+      }
+    }
+  }
+
+  button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1;
+
+    &:hover {
+      background-color: lighten($primary-color, 10%);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.disabled {
+      background-color: grey;
+      cursor: not-allowed;
+    }
+  }
+
+  #prevButton {
+    left: 10px;
+  }
+
+  #nextButton {
+    right: 10px;
+  }
+}
+
+// About section
+section#about {
+  height: 100vh;
+  background: url("../images/abour.webp");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  .layer {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 3;
+    background-color: #33333366;
+  }
+  h2 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    z-index: 5;
+  }
+  p {
+    font-size: 20px;
+    z-index: 5;
+  }
+}
+
+// Contact section
+section#contact {
+  height: 300px;
+  background: $dark-color;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  address {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  a {
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+    margin-bottom: 5px;
+  }
+}
+
+// Word wrap for long emails
+.break-word {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
